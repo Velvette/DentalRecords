@@ -16,5 +16,8 @@ public class DentalRecords {
     public static void main(String[] args) {
         InterfaceMenu menu = new InterfaceMenu();
         menu.setVisible(true);
+        menu.setLocationRelativeTo(null);
+        menu.setResizable(false);
+        menu.setTitle("Dental Records");
     }
 }

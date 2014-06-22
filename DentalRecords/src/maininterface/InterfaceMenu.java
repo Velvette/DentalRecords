@@ -9,9 +9,8 @@ package maininterface;
  */
 public class InterfaceMenu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form interfaceMenu
-     */
+    private ViewPatients windowViewPatients = new ViewPatients();
+    private ViewRecords windowViewRecords = new ViewRecords();
     public InterfaceMenu() {
         initComponents();
     }
@@ -26,10 +25,22 @@ public class InterfaceMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        jSeparator3 = new javax.swing.JToolBar.Separator();
+        jLabel1 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jButton4 = new javax.swing.JButton();
+        jSeparator2 = new javax.swing.JToolBar.Separator();
+        buttonRefresh = new javax.swing.JButton();
+        ViewTab = new javax.swing.JTabbedPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         menuPatients = new javax.swing.JMenuItem();
-        jMenuItem2 = new javax.swing.JMenuItem();
+        menuRecords = new javax.swing.JMenuItem();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         closeTab = new javax.swing.JMenuItem();
         jSeparator1 = new javax.swing.JPopupMenu.Separator();
@@ -37,7 +48,72 @@ public class InterfaceMenu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jToolBar1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/24x24/add.png"))); // NOI18N
+        jButton1.setToolTipText("Add");
+        jButton1.setContentAreaFilled(false);
+        jButton1.setFocusable(false);
+        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(jButton1);
+
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/24x24/edit.png"))); // NOI18N
+        jButton2.setToolTipText("Edit");
+        jButton2.setContentAreaFilled(false);
+        jButton2.setFocusable(false);
+        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton2);
+
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/24x24/delete.png"))); // NOI18N
+        jButton3.setToolTipText("Delete");
+        jButton3.setContentAreaFilled(false);
+        jButton3.setFocusable(false);
+        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton3);
+        jToolBar1.add(jSeparator3);
+
+        jLabel1.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
+        jLabel1.setText("Search: ");
+        jToolBar1.add(jLabel1);
+
+        jTextField1.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
+        jToolBar1.add(jTextField1);
+
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/24x24/search.png"))); // NOI18N
+        jButton4.setContentAreaFilled(false);
+        jButton4.setFocusable(false);
+        jButton4.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jButton4.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(jButton4);
+        jToolBar1.add(jSeparator2);
+
+        buttonRefresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/24x24/replay.png"))); // NOI18N
+        buttonRefresh.setFocusable(false);
+        buttonRefresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buttonRefresh.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        buttonRefresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonRefreshActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(buttonRefresh);
+
+        ViewTab.setTabPlacement(javax.swing.JTabbedPane.BOTTOM);
+        ViewTab.addContainerListener(new java.awt.event.ContainerAdapter() {
+            public void componentAdded(java.awt.event.ContainerEvent evt) {
+                ViewTabComponentAdded(evt);
+            }
+        });
 
         jMenu1.setText("File");
 
@@ -50,11 +126,24 @@ public class InterfaceMenu extends javax.swing.JFrame {
         });
         jMenu1.add(menuPatients);
 
-        jMenuItem2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/16x16/database.png"))); // NOI18N
-        jMenuItem2.setText("Transactions");
-        jMenu1.add(jMenuItem2);
+        menuRecords.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/16x16/database.png"))); // NOI18N
+        menuRecords.setText("Records");
+        menuRecords.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                menuRecordsActionPerformed(evt);
+            }
+        });
+        jMenu1.add(menuRecords);
 
         jMenuBar1.add(jMenu1);
+
+        jMenu3.setText("Settings");
+
+        jMenuItem1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/16x16/settings.png"))); // NOI18N
+        jMenuItem1.setText("Options");
+        jMenu3.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu3);
 
         jMenu2.setText("Close");
 
@@ -73,21 +162,69 @@ public class InterfaceMenu extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 811, Short.MAX_VALUE)
+            .addComponent(jToolBar1, javax.swing.GroupLayout.DEFAULT_SIZE, 1085, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(ViewTab)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 364, Short.MAX_VALUE)
-                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap()
+                .addComponent(ViewTab, javax.swing.GroupLayout.DEFAULT_SIZE, 452, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jToolBar1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void menuPatientsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuPatientsActionPerformed
+
+        ViewTab.add("Patients",windowViewPatients);
+        windowViewPatients.getPatientList(0,"");
         // TODO add your handling code here:
     }//GEN-LAST:event_menuPatientsActionPerformed
+
+    private void buttonRefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonRefreshActionPerformed
+
+        windowViewPatients.getPatientList(0, "");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonRefreshActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        String stringViewPatients = "maininterface.ViewPatients";
+        String stringViewRecords = "maininterface.ViewRecords";
+        
+        try {
+            if(ViewTab.getSelectedComponent().getClass().getName().equals(stringViewPatients)) {
+                windowViewPatients.addPatient();
+            }
+            else if(ViewTab.getSelectedComponent().getClass().getName().equals(stringViewRecords)) {
+                
+            }
+        }
+        catch(Exception e) {
+            
+        }
+        System.out.println(ViewTab.getSelectedComponent().getClass().getName());
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void menuRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRecordsActionPerformed
+
+        ViewTab.add("Records",windowViewRecords);
+        windowViewRecords.initiateList(0, "");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_menuRecordsActionPerformed
+
+    private void ViewTabComponentAdded(java.awt.event.ContainerEvent evt) {//GEN-FIRST:event_ViewTabComponentAdded
+
+        ViewTab.setSelectedIndex(ViewTab.getTabCount()-1);
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ViewTabComponentAdded
 
     /**
      * @param args the command line arguments
@@ -124,14 +261,26 @@ public class InterfaceMenu extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTabbedPane ViewTab;
+    private javax.swing.JButton buttonRefresh;
     private javax.swing.JMenuItem closeTab;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButton4;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPopupMenu.Separator jSeparator1;
+    private javax.swing.JToolBar.Separator jSeparator2;
+    private javax.swing.JToolBar.Separator jSeparator3;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JToolBar jToolBar1;
     private javax.swing.JMenuItem menuPatients;
+    private javax.swing.JMenuItem menuRecords;
     // End of variables declaration//GEN-END:variables
 }

@@ -17,7 +17,7 @@ public class ConnectToDatabase {
     String dbUrl = "jdbc:mysql://localhost:3306/mydb";
     String password = "p@ssword"; // CHANGE PASSWORD
     String name = "root";
-    private String dbDriver;
+    private String dbDriver = "com.mysql.jdbc.Driver";
     public Connection connection;
     
     public String getDbClass() {
@@ -34,6 +34,10 @@ public class ConnectToDatabase {
 
     public String getPassword() {
         return password;
+    }
+
+    public String getDbDriver() {
+        return dbDriver;
     }
     
     public Connection getConnection()
