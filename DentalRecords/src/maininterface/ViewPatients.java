@@ -3,6 +3,8 @@
  * and open the template in the editor.
  */
 package maininterface;
+import javax.swing.JOptionPane;
+import mainconnect.ProcessQuery;
 import utilities.TableUtilities;
 
 /**
@@ -37,7 +39,17 @@ public class ViewPatients extends javax.swing.JPanel{
     }
     
     public void deletePatients() {
-        
+        try {
+            int index = tablePatients.getSelectedRow();
+            String i = tablePatients.getValueAt(index, 0).toString();
+            String setInputQuery = "delete from patientinformation where patientid ="+i;
+            ProcessQuery processQueryInput = new ProcessQuery();
+            processQueryInput.accessInputDatabase(setInputQuery);
+            this.getPatientList(0, "");
+        }
+        catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: Select row to delete", "Error", JOptionPane.ERROR_MESSAGE); 
+        }
     }
     
 

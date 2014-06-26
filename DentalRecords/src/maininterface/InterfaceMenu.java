@@ -215,8 +215,6 @@ public class InterfaceMenu extends javax.swing.JFrame {
         catch(Exception e) {
             
         }
-        System.out.println(ViewTab.getSelectedComponent().getClass().getName());
-        // TODO add your handling code here:
     }//GEN-LAST:event_buttonAddActionPerformed
 
     private void menuRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRecordsActionPerformed
@@ -234,7 +232,20 @@ public class InterfaceMenu extends javax.swing.JFrame {
 
     private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
        
-        // TODO add your handling code here:
+        String stringViewPatients = "maininterface.ViewPatients";
+        String stringViewRecords = "maininterface.ViewRecords";
+        
+        try {
+            if(ViewTab.getSelectedComponent().getClass().getName().equals(stringViewPatients)) {
+                windowViewPatients.deletePatients();
+            }
+            else if(ViewTab.getSelectedComponent().getClass().getName().equals(stringViewRecords)) {
+                windowViewRecords.deleteRecords();
+            }
+        }
+        catch(Exception e) {
+            
+        }
     }//GEN-LAST:event_buttonDeleteActionPerformed
 
     /**

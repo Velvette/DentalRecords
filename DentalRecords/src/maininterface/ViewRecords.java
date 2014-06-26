@@ -9,8 +9,10 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 import mainconnect.ConnectToDatabase;
+import mainconnect.ProcessQuery;
 import utilities.TableUtilities;
 /**
  *
@@ -94,6 +96,20 @@ public class ViewRecords extends javax.swing.JPanel {
             windowAddRecords.setLocationRelativeTo(null);
             windowAddRecords.setResizable(false);
             windowAddRecords.setTitle("Add Records - Information");
+        }
+    }
+    
+    public void deleteRecords() {
+        try {
+            int index = tableRecords.getSelectedRow();
+            String i = tableRecords.getValueAt(index, 0).toString();
+            String setInputQuery = "delete from patientrecords where recordid ="+i;
+            ProcessQuery processQueryInput = new ProcessQuery();
+            processQueryInput.accessInputDatabase(setInputQuery);
+            this.listOfPatientsMouseClicked(null);
+        }
+        catch(Exception e) {
+            JOptionPane.showMessageDialog(null, "Error: Select row to delete", "Error", JOptionPane.ERROR_MESSAGE); 
         }
     }
     
