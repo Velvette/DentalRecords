@@ -12,7 +12,8 @@ import utilities.TableUtilities;
 public class ViewPatients extends javax.swing.JPanel{
 
     private static final int NUMBER_OF_TABLECOLUMNS = 7;
-    private static final String DEFAULT_QUERY = "Select patientID,firstname,lastname,initial,address,contact1,contact2 from patientinformation order by lastname";
+    private static final String DEFAULT_QUERY = "Select patientID,lastname,firstname,initial,address,contact1,contact2 "
+            + "from patientinformation order by lastname";
     
     final static AddPatient windowAddPatient = new AddPatient();
     
@@ -28,10 +29,15 @@ public class ViewPatients extends javax.swing.JPanel{
     
     public void addPatient()
     {
+        windowAddPatient.resetWindow();
         windowAddPatient.setLocationRelativeTo(null);
         windowAddPatient.setTitle("Add Patient - Information");
         windowAddPatient.setResizable(false);
         windowAddPatient.setVisible(true);
+    }
+    
+    public void deletePatients() {
+        
     }
     
 
@@ -79,7 +85,7 @@ public class ViewPatients extends javax.swing.JPanel{
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 393, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -9,8 +9,9 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import javax.swing.DefaultListModel;
-import mainconnect.ConnectToDatabase;
 
+import mainconnect.ConnectToDatabase;
+import utilities.TableUtilities;
 /**
  *
  * @author admin
@@ -20,8 +21,13 @@ public class ViewRecords extends javax.swing.JPanel {
     private ArrayList<String> arrayPatientId = new ArrayList<>();
     private DefaultListModel listModel = new DefaultListModel();
     
-    private static final String DEFAULT_QUERY = "Select patientid,lastname,firstname,initial from patientinformation order by lastname";
+    private static final String DEFAULT_QUERY = "Select patientid,lastname,firstname,initial "
+            + "from patientinformation order by lastname";
+    private static final String DEFAULT_QUERY_TABLE = "Select recordid,date,description,amount from patientrecords "
+            + "where patientid=";
     private static final int NUMBER_OF_TABLECOLUMNS = 4;
+    
+    final static AddRecords windowAddRecords = new AddRecords();
     
     public ViewRecords() {
         initComponents();
@@ -52,11 +58,10 @@ public class ViewRecords extends javax.swing.JPanel {
                 }
             }
             catch(Exception e) {
-                
-            }
+}
         }
         catch(Exception e) {
-            
+        
         }
         finally {
             connectDatabase.disconnect();
@@ -66,6 +71,29 @@ public class ViewRecords extends javax.swing.JPanel {
             catch(Exception e) {
                 
             }
+        }
+    }
+    
+    public void addRecords() {
+        String stringPatientName = "";
+        try {
+            stringPatientName = (String) listOfPatients.getSelectedValue();
+        }
+        catch(Exception e) {
+            
+        }
+        //CHECK IF PATIENTNAME IS EMPTY
+        if(stringPatientName.equals("")) {
+            
+        }
+        else {
+            windowAddRecords.resetWindow();
+            windowAddRecords.setStringPatientName(stringPatientName);
+            windowAddRecords.setStringPatiendId(arrayPatientId.get(listOfPatients.getSelectedIndex()));
+            windowAddRecords.setVisible(true);
+            windowAddRecords.setLocationRelativeTo(null);
+            windowAddRecords.setResizable(false);
+            windowAddRecords.setTitle("Add Records - Information");
         }
     }
     
@@ -89,7 +117,7 @@ public class ViewRecords extends javax.swing.JPanel {
         listOfPatients = new javax.swing.JList();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tableRecords = new javax.swing.JTable();
         jSeparator1 = new javax.swing.JSeparator();
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Search"));
@@ -97,6 +125,11 @@ public class ViewRecords extends javax.swing.JPanel {
         buttonSearch.setText("Search");
 
         buttonShowAll.setText("Show All");
+        buttonShowAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonShowAllActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -120,6 +153,11 @@ public class ViewRecords extends javax.swing.JPanel {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Patient"));
 
+        listOfPatients.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listOfPatientsMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(listOfPatients);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -135,7 +173,7 @@ public class ViewRecords extends javax.swing.JPanel {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Details"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tableRecords.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -151,7 +189,9 @@ public class ViewRecords extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(tableRecords);
+        tableRecords.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tableRecords.getColumnModel().getColumn(2).setPreferredWidth(300);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -193,6 +233,27 @@ public class ViewRecords extends javax.swing.JPanel {
             .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void listOfPatientsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listOfPatientsMouseClicked
+        try {
+            TableUtilities getTableInformation = new TableUtilities();
+            String stringPatientId = arrayPatientId.get(listOfPatients.getSelectedIndex());
+            String DEF_QUERY = DEFAULT_QUERY_TABLE +"'"+stringPatientId+"' order by date desc";
+            System.out.println(DEF_QUERY);
+            getTableInformation.getList(0, "", tableRecords, NUMBER_OF_TABLECOLUMNS, DEF_QUERY, DEF_QUERY);
+        }
+        catch(Exception e) {
+            
+        }
+        // TODO add your handling code here:
+    }//GEN-LAST:event_listOfPatientsMouseClicked
+
+    private void buttonShowAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonShowAllActionPerformed
+
+        this.initiateList(0, "");
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonShowAllActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton buttonSearch;
     private javax.swing.JButton buttonShowAll;
@@ -202,8 +263,8 @@ public class ViewRecords extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTable1;
     private javax.swing.JList listOfPatients;
+    private javax.swing.JTable tableRecords;
     private javax.swing.JTextField textSearch;
     // End of variables declaration//GEN-END:variables
 }

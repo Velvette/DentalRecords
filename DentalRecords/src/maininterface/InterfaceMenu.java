@@ -11,6 +11,7 @@ public class InterfaceMenu extends javax.swing.JFrame {
 
     private ViewPatients windowViewPatients = new ViewPatients();
     private ViewRecords windowViewRecords = new ViewRecords();
+    
     public InterfaceMenu() {
         initComponents();
     }
@@ -25,9 +26,9 @@ public class InterfaceMenu extends javax.swing.JFrame {
     private void initComponents() {
 
         jToolBar1 = new javax.swing.JToolBar();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        buttonAdd = new javax.swing.JButton();
+        buttonEdit = new javax.swing.JButton();
+        buttonDelete = new javax.swing.JButton();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -52,34 +53,39 @@ public class InterfaceMenu extends javax.swing.JFrame {
         jToolBar1.setFloatable(false);
         jToolBar1.setRollover(true);
 
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/24x24/add.png"))); // NOI18N
-        jButton1.setToolTipText("Add");
-        jButton1.setContentAreaFilled(false);
-        jButton1.setFocusable(false);
-        jButton1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        buttonAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/24x24/add.png"))); // NOI18N
+        buttonAdd.setToolTipText("Add");
+        buttonAdd.setContentAreaFilled(false);
+        buttonAdd.setFocusable(false);
+        buttonAdd.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buttonAdd.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        buttonAdd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                buttonAddActionPerformed(evt);
             }
         });
-        jToolBar1.add(jButton1);
+        jToolBar1.add(buttonAdd);
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/24x24/edit.png"))); // NOI18N
-        jButton2.setToolTipText("Edit");
-        jButton2.setContentAreaFilled(false);
-        jButton2.setFocusable(false);
-        jButton2.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton2.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton2);
+        buttonEdit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/24x24/edit.png"))); // NOI18N
+        buttonEdit.setToolTipText("Edit");
+        buttonEdit.setContentAreaFilled(false);
+        buttonEdit.setFocusable(false);
+        buttonEdit.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buttonEdit.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jToolBar1.add(buttonEdit);
 
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/24x24/delete.png"))); // NOI18N
-        jButton3.setToolTipText("Delete");
-        jButton3.setContentAreaFilled(false);
-        jButton3.setFocusable(false);
-        jButton3.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton3.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar1.add(jButton3);
+        buttonDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/resources/icons/24x24/delete.png"))); // NOI18N
+        buttonDelete.setToolTipText("Delete");
+        buttonDelete.setContentAreaFilled(false);
+        buttonDelete.setFocusable(false);
+        buttonDelete.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        buttonDelete.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        buttonDelete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonDeleteActionPerformed(evt);
+            }
+        });
+        jToolBar1.add(buttonDelete);
         jToolBar1.add(jSeparator3);
 
         jLabel1.setFont(new java.awt.Font("Courier New", 1, 14)); // NOI18N
@@ -193,7 +199,7 @@ public class InterfaceMenu extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_buttonRefreshActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
 
         String stringViewPatients = "maininterface.ViewPatients";
         String stringViewRecords = "maininterface.ViewRecords";
@@ -203,7 +209,7 @@ public class InterfaceMenu extends javax.swing.JFrame {
                 windowViewPatients.addPatient();
             }
             else if(ViewTab.getSelectedComponent().getClass().getName().equals(stringViewRecords)) {
-                
+                windowViewRecords.addRecords();
             }
         }
         catch(Exception e) {
@@ -211,7 +217,7 @@ public class InterfaceMenu extends javax.swing.JFrame {
         }
         System.out.println(ViewTab.getSelectedComponent().getClass().getName());
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_buttonAddActionPerformed
 
     private void menuRecordsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_menuRecordsActionPerformed
 
@@ -225,6 +231,11 @@ public class InterfaceMenu extends javax.swing.JFrame {
         ViewTab.setSelectedIndex(ViewTab.getTabCount()-1);
         // TODO add your handling code here:
     }//GEN-LAST:event_ViewTabComponentAdded
+
+    private void buttonDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonDeleteActionPerformed
+       
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonDeleteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -262,11 +273,11 @@ public class InterfaceMenu extends javax.swing.JFrame {
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTabbedPane ViewTab;
+    private javax.swing.JButton buttonAdd;
+    private javax.swing.JButton buttonDelete;
+    private javax.swing.JButton buttonEdit;
     private javax.swing.JButton buttonRefresh;
     private javax.swing.JMenuItem closeTab;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JMenu jMenu1;

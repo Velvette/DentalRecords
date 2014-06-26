@@ -4,18 +4,80 @@
  */
 package maininterface;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import mainconnect.ProcessQuery;
 /**
  *
  * @author admin
  */
 public class AddRecords extends javax.swing.JFrame {
 
-    /**
-     * Creates new form AddRecords
-     */
+    private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    private String stringPatientId = "";
+        
     public AddRecords() {
         initComponents();
+        dateFormat.setLenient(false);
+        
+        //SET DATE FIELD TO CURRENT DATE
+        this.initDate();
     }
+    
+    public void initDate() {
+        Calendar calendar = Calendar.getInstance();
+        Date current = calendar.getTime();
+        textDate.setText(dateFormat.format(current));
+    }
+
+    public void setStringPatientName(String stringPatientName) {
+        textPatientName.setText(stringPatientName);
+    }
+
+    public void setStringPatiendId(String stringPatiendId) {
+        this.stringPatientId = stringPatiendId;
+    }
+        
+    public void checkInputRecords() {
+        String dateInput = "";
+        String descInput = textDescription.getText();
+        double amount = 0.0;
+        int countErrorInputs = 0;
+        String stringErrorOut = "";
+        try {
+            Date formatInputDate = dateFormat.parse(textDate.getText());
+            dateInput = dateFormat.format(formatInputDate);
+        }
+        catch(Exception e) {
+            countErrorInputs++;
+        }
+        
+        try {
+            amount = Double.parseDouble(textAmount.getText());
+        }
+        catch(Exception e) {
+            
+        }
+        
+        if(countErrorInputs == 0) {
+            ProcessQuery processQueryInput = new ProcessQuery();
+            String setInputQuery = "insert into patientrecords (patientid,date,description,amount) values ('"+stringPatientId+"','"+dateInput+"','"+descInput+"','"+amount+"')";
+            processQueryInput.accessInputDatabase(setInputQuery);
+        }
+        else {
+            
+        }
+    }
+    
+    public void resetWindow() {
+        this.initDate();
+        textDescription.setText("");
+        textAmount.setText("0.0");
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -42,7 +104,7 @@ public class AddRecords extends javax.swing.JFrame {
         buttonCancel = new javax.swing.JButton();
         buttonClear = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Date (YYYY-MM-DD)");
 
@@ -60,12 +122,23 @@ public class AddRecords extends javax.swing.JFrame {
         jLabel4.setText("Amount");
 
         textAmount.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        textAmount.setText("0.0");
 
         buttonConfirm.setText("Confirm");
+        buttonConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonConfirmActionPerformed(evt);
+            }
+        });
 
         buttonCancel.setText("Cancel");
 
         buttonClear.setText("Clear");
+        buttonClear.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buttonClearActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,6 +209,16 @@ public class AddRecords extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void buttonClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonClearActionPerformed
+        this.resetWindow();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonClearActionPerformed
+
+    private void buttonConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonConfirmActionPerformed
+        this.checkInputRecords();
+        // TODO add your handling code here:
+    }//GEN-LAST:event_buttonConfirmActionPerformed
 
     /**
      * @param args the command line arguments
